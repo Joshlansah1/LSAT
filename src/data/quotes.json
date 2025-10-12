@@ -1,0 +1,254 @@
+{
+  "quotes": [
+    {
+      "id": 1,
+      "text": "Success is the sum of small efforts repeated day in and day out.",
+      "author": "Robert Collier"
+    },
+    {
+      "id": 2,
+      "text": "The secret of getting ahead is getting started.",
+      "author": "Mark Twain"
+    },
+    {
+      "id": 3,
+      "text": "You don't have to be great to start, but you have to start to be great.",
+      "author": "Zig Ziglar"
+    },
+    {
+      "id": 4,
+      "text": "The only way to do great work is to love what you do.",
+      "author": "Steve Jobs"
+    },
+    {
+      "id": 5,
+      "text": "Believe you can and you're halfway there.",
+      "author": "Theodore Roosevelt"
+    },
+    {
+      "id": 6,
+      "text": "Don't watch the clock; do what it does. Keep going.",
+      "author": "Sam Levenson"
+    },
+    {
+      "id": 7,
+      "text": "The future belongs to those who believe in the beauty of their dreams.",
+      "author": "Eleanor Roosevelt"
+    },
+    {
+      "id": 8,
+      "text": "It always seems impossible until it's done.",
+      "author": "Nelson Mandela"
+    },
+    {
+      "id": 9,
+      "text": "You are never too old to set another goal or to dream a new dream.",
+      "author": "C.S. Lewis"
+    },
+    {
+      "id": 10,
+      "text": "The only limit to our realization of tomorrow is our doubts of today.",
+      "author": "Franklin D. Roosevelt"
+    },
+    {
+      "id": 11,
+      "text": "Success is not final, failure is not fatal: It is the courage to continue that counts.",
+      "author": "Winston Churchill"
+    },
+    {
+      "id": 12,
+      "text": "The harder you work for something, the greater you'll feel when you achieve it.",
+      "author": "Anonymous"
+    },
+    {
+      "id": 13,
+      "text": "Dream bigger. Do bigger.",
+      "author": "Anonymous"
+    },
+    {
+      "id": 14,
+      "text": "Don't stop when you're tired. Stop when you're done.",
+      "author": "Anonymous"
+    },
+    {
+      "id": 15,
+      "text": "Wake up with determination. Go to bed with satisfaction.",
+      "author": "Anonymous"
+    },
+    {
+      "id": 16,
+      "text": "Do something today that your future self will thank you for.",
+      "author": "Sean Patrick Flanery"
+    },
+    {
+      "id": 17,
+      "text": "Little things make big days.",
+      "author": "Anonymous"
+    },
+    {
+      "id": 18,
+      "text": "It's going to be hard, but hard does not mean impossible.",
+      "author": "Anonymous"
+    },
+    {
+      "id": 19,
+      "text": "Don't wait for opportunity. Create it.",
+      "author": "Anonymous"
+    },
+    {
+      "id": 20,
+      "text": "Sometimes we're tested not to show our weaknesses, but to discover our strengths.",
+      "author": "Anonymous"
+    },
+    {
+      "id": 21,
+      "text": "The key to success is to focus on goals, not obstacles.",
+      "author": "Anonymous"
+    },
+    {
+      "id": 22,
+      "text": "Dream it. Believe it. Build it.",
+      "author": "Anonymous"
+    },
+    {
+      "id": 23,
+      "text": "Your limitation—it's only your imagination.",
+      "author": "Anonymous"
+    },
+    {
+      "id": 24,
+      "text": "Great things never come from comfort zones.",
+      "author": "Anonymous"
+    },
+    {
+      "id": 25,
+      "text": "Success doesn't just find you. You have to go out and get it.",
+      "author": "Anonymous"
+    },
+    {
+      "id": 26,
+      "text": "The harder you work, the luckier you get.",
+      "author": "Gary Player"
+    },
+    {
+      "id": 27,
+      "text": "Don't be pushed around by the fears in your mind. Be led by the dreams in your heart.",
+      "author": "Roy T. Bennett"
+    },
+    {
+      "id": 28,
+      "text": "Opportunities don't happen. You create them.",
+      "author": "Chris Grosser"
+    },
+    {
+      "id": 29,
+      "text": "Success is walking from failure to failure with no loss of enthusiasm.",
+      "author": "Winston Churchill"
+    },
+    {
+      "id": 30,
+      "text": "The only person you are destined to become is the person you decide to be.",
+      "author": "Ralph Waldo Emerson"
+    },
+    {
+      "id": 31,
+      "text": "Go confidently in the direction of your dreams. Live the life you have imagined.",
+      "author": "Henry David Thoreau"
+    },
+    {
+      "id": 32,
+      "text": "Challenges are what make life interesting. Overcoming them is what makes life meaningful.",
+      "author": "Joshua J. Marine"
+    },
+    {
+      "id": 33,
+      "text": "If you want to achieve greatness, stop asking for permission.",
+      "author": "Anonymous"
+    },
+    {
+      "id": 34,
+      "text": "Things work out best for those who make the best of how things work out.",
+      "author": "John Wooden"
+    },
+    {
+      "id": 35,
+      "text": "To live a creative life, we must lose our fear of being wrong.",
+      "author": "Anonymous"
+    },
+    {
+      "id": 36,
+      "text": "If you are not willing to risk the usual, you will have to settle for the ordinary.",
+      "author": "Jim Rohn"
+    },
+    {
+      "id": 37,
+      "text": "Trust because you are willing to accept the risk, not because it's safe or certain.",
+      "author": "Anonymous"
+    },
+    {
+      "id": 38,
+      "text": "All our dreams can come true if we have the courage to pursue them.",
+      "author": "Walt Disney"
+    },
+    {
+      "id": 39,
+      "text": "Good things come to people who wait, but better things come to those who go out and get them.",
+      "author": "Anonymous"
+    },
+    {
+      "id": 40,
+      "text": "I find that the harder I work, the more luck I seem to have.",
+      "author": "Thomas Jefferson"
+    },
+    {
+      "id": 41,
+      "text": "The distance between your dreams and reality is called action.",
+      "author": "Anonymous"
+    },
+    {
+      "id": 42,
+      "text": "You are capable of amazing things.",
+      "author": "Anonymous"
+    },
+    {
+      "id": 43,
+      "text": "Your only limit is you.",
+      "author": "Anonymous"
+    },
+    {
+      "id": 44,
+      "text": "Sometimes later becomes never. Do it now.",
+      "author": "Anonymous"
+    },
+    {
+      "id": 45,
+      "text": "One day or day one. You decide.",
+      "author": "Anonymous"
+    },
+    {
+      "id": 46,
+      "text": "It's not about perfect. It's about effort.",
+      "author": "Jillian Michaels"
+    },
+    {
+      "id": 47,
+      "text": "You didn't come this far to only come this far.",
+      "author": "Anonymous"
+    },
+    {
+      "id": 48,
+      "text": "Focus on being productive instead of busy.",
+      "author": "Tim Ferriss"
+    },
+    {
+      "id": 49,
+      "text": "The best time to plant a tree was 20 years ago. The second best time is now.",
+      "author": "Chinese Proverb"
+    },
+    {
+      "id": 50,
+      "text": "Your mind is a powerful thing. When you fill it with positive thoughts, your life will start to change.",
+      "author": "Anonymous"
+    }
+  ]
+}

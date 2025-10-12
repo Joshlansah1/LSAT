@@ -1,0 +1,98 @@
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { supabase } from "../lib/supabase";
+import toast from "react-hot-toast";
+
+export function useStudyLogs() {
+  const queryClient = useQueryClient();
+
+  const logsQuery = useQuery({
+    queryKey: ["studyLogs"],
+    queryFn: async () => {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      if (!user) throw new Error("Not authenticated");
+
+      const { data, error } = await supabase
+        .from("study_logs")
+        .select("*")
+        .eq("user_id", user.id)
+        .order("study_date", { ascending: false });
+
+      if (error) throw error;
+      return data;
+    },
+  });
+
+  const addLogMutation = useMutation({
+    mutationFn: async (logData) => {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      if (!user) throw new Error("Not authenticated");
+
+      const { data, error } = await supabase
+        .from("study_logs")
+        .insert([{ ...logData, user_id: user.id }])
+        .select()
+        .single();
+
+      if (error) throw error;
+      return data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["studyLogs"] });
+      queryClient.invalidateQueries({ queryKey: ["streak"] });
+      toast.success("Study log added successfully!");
+    },
+    onError: (error) => {
+      toast.error(error.message || "Failed to add study log");
+    },
+  });
+
+  const updateLogMutation = useMutation({
+    mutationFn: async ({ id, ...updates }) => {
+      const { data, error } = await supabase
+        .from("study_logs")
+        .update(updates)
+        .eq("id", id)
+        .select()
+        .single();
+
+      if (error) throw error;
+      return data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["studyLogs"] });
+      queryClient.invalidateQueries({ queryKey: ["streak"] });
+      toast.success("Study log updated!");
+    },
+    onError: (error) => {
+      toast.error(error.message || "Failed to update study log");
+    },
+  });
+
+  const deleteLogMutation = useMutation({
+    mutationFn: async (id) => {
+      const { error } = await supabase.from("study_logs").delete().eq("id", id);
+      if (error) throw error;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["studyLogs"] });
+      queryClient.invalidateQueries({ queryKey: ["streak"] });
+      toast.success("Study log deleted!");
+    },
+    onError: (error) => {
+      toast.error(error.message || "Failed to delete study log");
+    },
+  });
+
+  return {
+    logs: logsQuery.data || [],
+    isLoading: logsQuery.isLoading,
+    error: logsQuery.error,
+    addLog: addLogMutation.mutateAsync,
+    updateLog: updateLogMutation.mutateAsync,
+    deleteLog: deleteLogMutation.mutateAsync,
+  };
+}
