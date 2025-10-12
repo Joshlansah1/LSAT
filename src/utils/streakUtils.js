@@ -87,6 +87,103 @@ export const getFlowerStage = (streak) => {
 };
 
 /**
+ * Get collected flowers based on streak milestones
+ * Each 7-day milestone unlocks a new flower for your garden
+ * @param {number} streak - Current streak count
+ * @returns {Array} Array of flower objects with emoji, name, and unlockDay
+ */
+export const getCollectedFlowers = (streak) => {
+  const flowers = [
+    { emoji: "🌻", name: "Sunflower", unlockDay: 7, color: "text-yellow-500" },
+    { emoji: "🌹", name: "Rose", unlockDay: 14, color: "text-red-500" },
+    { emoji: "🌷", name: "Tulip", unlockDay: 21, color: "text-pink-500" },
+    { emoji: "🌺", name: "Hibiscus", unlockDay: 28, color: "text-pink-600" },
+    { emoji: "🪷", name: "Lotus", unlockDay: 35, color: "text-pink-400" },
+    { emoji: "🌼", name: "Daisy", unlockDay: 42, color: "text-yellow-400" },
+    { emoji: "🏵️", name: "Rosette", unlockDay: 49, color: "text-rose-500" },
+    { emoji: "💐", name: "Bouquet", unlockDay: 56, color: "text-purple-500" },
+    { emoji: "🪻", name: "Hyacinth", unlockDay: 63, color: "text-purple-400" },
+    {
+      emoji: "🌸",
+      name: "Cherry Blossom",
+      unlockDay: 70,
+      color: "text-pink-300",
+    },
+    {
+      emoji: "🥀",
+      name: "Wilted Rose",
+      unlockDay: 77,
+      color: "text-rose-600",
+      description: "Beauty in perseverance",
+    },
+    {
+      emoji: "🪴",
+      name: "Potted Plant",
+      unlockDay: 84,
+      color: "text-green-600",
+    },
+    {
+      emoji: "🌾",
+      name: "Sheaf of Rice",
+      unlockDay: 91,
+      color: "text-amber-600",
+    },
+    {
+      emoji: "🍀",
+      name: "Four Leaf Clover",
+      unlockDay: 98,
+      color: "text-green-500",
+      description: "Lucky dedication!",
+    },
+    {
+      emoji: "🏆",
+      name: "Trophy Garden",
+      unlockDay: 100,
+      color: "text-yellow-600",
+      description: "100 days of excellence!",
+    },
+  ];
+
+  return flowers.filter((flower) => streak >= flower.unlockDay);
+};
+
+/**
+ * Get the next flower to unlock
+ * @param {number} streak - Current streak count
+ * @returns {Object|null} Next flower object or null if all unlocked
+ */
+export const getNextFlower = (streak) => {
+  const allFlowers = [
+    { emoji: "🌻", name: "Sunflower", unlockDay: 7 },
+    { emoji: "🌹", name: "Rose", unlockDay: 14 },
+    { emoji: "🌷", name: "Tulip", unlockDay: 21 },
+    { emoji: "🌺", name: "Hibiscus", unlockDay: 28 },
+    { emoji: "🪷", name: "Lotus", unlockDay: 35 },
+    { emoji: "🌼", name: "Daisy", unlockDay: 42 },
+    { emoji: "🏵️", name: "Rosette", unlockDay: 49 },
+    { emoji: "💐", name: "Bouquet", unlockDay: 56 },
+    { emoji: "🪻", name: "Hyacinth", unlockDay: 63 },
+    { emoji: "🌸", name: "Cherry Blossom", unlockDay: 70 },
+    { emoji: "🥀", name: "Wilted Rose", unlockDay: 77 },
+    { emoji: "🪴", name: "Potted Plant", unlockDay: 84 },
+    { emoji: "🌾", name: "Sheaf of Rice", unlockDay: 91 },
+    { emoji: "🍀", name: "Four Leaf Clover", unlockDay: 98 },
+    { emoji: "🏆", name: "Trophy Garden", unlockDay: 100 },
+  ];
+
+  const nextFlower = allFlowers.find((flower) => streak < flower.unlockDay);
+
+  if (nextFlower) {
+    return {
+      ...nextFlower,
+      daysRemaining: nextFlower.unlockDay - streak,
+    };
+  }
+
+  return null;
+};
+
+/**
  * Get total study hours from logs
  * @param {Array} studyLogs - Array of study log objects
  * @returns {number} Total hours

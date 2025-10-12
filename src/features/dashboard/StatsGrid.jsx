@@ -95,7 +95,7 @@ const StatsGrid = ({ streak = 0, logs = [] }) => {
       icon: FiCalendar,
       label: "This Week",
       value: `${weekStudyDays} ${weekStudyDays === 1 ? "day" : "days"}`,
-      color: "secondary",
+      color: "success",
       trend: weekStudyDays >= 5 ? "Excellent!" : "Keep going!",
     },
     {

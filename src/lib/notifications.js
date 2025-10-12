@@ -1,18 +1,22 @@
-import OneSignal from "react-onesignal";
+/**
+ * OneSignal Push Notifications Configuration
+ * Using OneSignal Web SDK v16 with CDN approach
+ */
 
 const ONESIGNAL_APP_ID = import.meta.env.VITE_ONESIGNAL_APP_ID;
+let isInitialized = false;
+let scriptLoaded = false;
 
 /**
  * Initialize OneSignal for push notifications
  * This enables daily study reminders even when the app is closed
- * CURRENTLY DISABLED - Enable when ready
  */
 export const initializeNotifications = async () => {
-  // Temporarily disabled
-  console.log("OneSignal: Disabled for now");
-  return false;
+  if (isInitialized) {
+    console.log("OneSignal already initialized");
+    return true;
+  }
 
-  /* Uncomment when ready to use
   if (!ONESIGNAL_APP_ID) {
     console.warn(
       "OneSignal App ID not configured. Push notifications disabled."
@@ -21,91 +25,120 @@ export const initializeNotifications = async () => {
   }
 
   try {
-    await OneSignal.init({
-      appId: ONESIGNAL_APP_ID,
-      allowLocalhostAsSecureOrigin: true,
-      notifyButton: {
-        enable: false,
-      },
-      welcomeNotification: {
-        disable: false,
-        title: "Welcome to Geraudia's LSAT Journey!",
-        message: "You'll receive daily reminders to keep your streak alive! 🌸",
-      },
-    });
+    // Load OneSignal SDK from CDN only once
+    if (!scriptLoaded) {
+      const script = document.createElement("script");
+      script.src =
+        "https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js";
+      script.defer = true;
+      document.head.appendChild(script);
+      scriptLoaded = true;
+    }
 
-    // Request notification permission
-    await OneSignal.showNativePrompt();
+    // Initialize OneSignal with modern SDK
+    window.OneSignalDeferred = window.OneSignalDeferred || [];
+    window.OneSignalDeferred.push(async function (OneSignal) {
+      // Check if already initialized
+      if (isInitialized) {
+        return;
+      }
+
+      await OneSignal.init({
+        appId: ONESIGNAL_APP_ID,
+        allowLocalhostAsSecureOrigin: true,
+        notifyButton: {
+          enable: false,
+        },
+      });
+
+      // Show notification permission prompt
+      await OneSignal.Slidedown.promptPush();
+
+      isInitialized = true;
+      console.log("✅ OneSignal initialized successfully");
+    });
 
     return true;
   } catch (error) {
     console.error("Failed to initialize OneSignal:", error);
     return false;
   }
-  */
 };
 
 /**
  * Set user ID for targeted notifications
- * CURRENTLY DISABLED
+ * Call this after user logs in
  */
 export const setNotificationUserId = async (userId) => {
-  // Temporarily disabled
-  console.log("OneSignal: setNotificationUserId disabled");
-  return;
+  if (!userId) return;
 
-  /* Uncomment when ready to use
-  try {
-    await OneSignal.setExternalUserId(userId);
-  } catch (error) {
-    console.error("Failed to set OneSignal user ID:", error);
-  }
-  */
+  window.OneSignalDeferred = window.OneSignalDeferred || [];
+  window.OneSignalDeferred.push(function (OneSignal) {
+    OneSignal.login(userId);
+    console.log("✅ OneSignal user ID set:", userId);
+  });
 };
 
 /**
- * Send a tag to OneSignal (for segmentation)
- * Example: current streak count, study goal, etc.
+ * Send tags to OneSignal for personalized notifications
+ * Example: { user_name: "Geraudia", current_streak: "7" }
  */
 export const setNotificationTags = async (tags) => {
-  try {
-    await OneSignal.sendTags(tags);
-  } catch (error) {
-    console.error("Failed to set OneSignal tags:", error);
-  }
+  if (!tags || typeof tags !== "object") return;
+
+  window.OneSignalDeferred = window.OneSignalDeferred || [];
+  window.OneSignalDeferred.push(function (OneSignal) {
+    OneSignal.User.addTags(tags);
+    console.log("✅ OneSignal tags updated:", tags);
+  });
 };
 
 /**
- * Check if notifications are enabled
+ * Check if user has granted notification permission
  */
 export const areNotificationsEnabled = async () => {
-  try {
-    return await OneSignal.isPushNotificationsEnabled();
-  } catch (error) {
-    console.error("Failed to check notification status:", error);
-    return false;
-  }
+  return new Promise((resolve) => {
+    window.OneSignalDeferred = window.OneSignalDeferred || [];
+    window.OneSignalDeferred.push(async function (OneSignal) {
+      const permission = await OneSignal.Notifications.permission;
+      resolve(permission === "granted");
+    });
+  });
 };
 
 /**
  * Remove notification tags
  */
 export const removeNotificationTags = async (tagKeys) => {
-  try {
-    await OneSignal.deleteTags(tagKeys);
-  } catch (error) {
-    console.error("Failed to remove OneSignal tags:", error);
-  }
+  if (!tagKeys || !Array.isArray(tagKeys)) return;
+
+  window.OneSignalDeferred = window.OneSignalDeferred || [];
+  window.OneSignalDeferred.push(function (OneSignal) {
+    OneSignal.User.removeTags(tagKeys);
+    console.log("✅ OneSignal tags removed:", tagKeys);
+  });
 };
 
 /**
  * Get notification permission status
  */
 export const getNotificationPermission = async () => {
-  try {
-    return await OneSignal.getNotificationPermission();
-  } catch (error) {
-    console.error("Failed to get notification permission:", error);
-    return "denied";
-  }
+  return new Promise((resolve) => {
+    window.OneSignalDeferred = window.OneSignalDeferred || [];
+    window.OneSignalDeferred.push(async function (OneSignal) {
+      const permission = await OneSignal.Notifications.permission;
+      resolve(permission);
+    });
+  });
+};
+
+/**
+ * Manually show notification prompt
+ * Use this if you want to show the prompt at a specific time
+ */
+export const showNotificationPrompt = () => {
+  window.OneSignalDeferred = window.OneSignalDeferred || [];
+  window.OneSignalDeferred.push(function (OneSignal) {
+    OneSignal.Slidedown.promptPush();
+  });
 };

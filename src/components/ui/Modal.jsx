@@ -87,7 +87,10 @@ const Modal = ({
           />
 
           {/* Modal */}
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div 
+            className="fixed inset-0 z-50 flex items-center justify-center p-4"
+            onClick={closeOnOverlayClick ? onClose : undefined}
+          >
             <motion.div
               className={`w-full ${sizeStyles[size]} bg-white dark:bg-gray-800 rounded-2xl shadow-2xl overflow-hidden`}
               variants={modalVariants}
@@ -97,6 +100,7 @@ const Modal = ({
               role="dialog"
               aria-modal="true"
               aria-labelledby={title ? "modal-title" : undefined}
+              onClick={(e) => e.stopPropagation()}
             >
               {/* Header */}
               {(title || showCloseButton) && (

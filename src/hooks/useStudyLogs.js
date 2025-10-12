@@ -52,22 +52,36 @@ export function useStudyLogs() {
 
   const updateLogMutation = useMutation({
     mutationFn: async ({ id, ...updates }) => {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      if (!user) throw new Error("Not authenticated");
+
+      console.log("Updating log:", { id, updates, userId: user.id });
+
       const { data, error } = await supabase
         .from("study_logs")
         .update(updates)
         .eq("id", id)
-        .select()
-        .single();
+        .eq("user_id", user.id)
+        .select();
+
+      console.log("Update result:", { data, error });
 
       if (error) throw error;
-      return data;
+      if (!data || data.length === 0) {
+        throw new Error("No matching log found to update");
+      }
+      return data[0];
     },
-    onSuccess: () => {
+    onSuccess: (data) => {
+      console.log("Update successful:", data);
       queryClient.invalidateQueries({ queryKey: ["studyLogs"] });
       queryClient.invalidateQueries({ queryKey: ["streak"] });
       toast.success("Study log updated!");
     },
     onError: (error) => {
+      console.error("Update error:", error);
       toast.error(error.message || "Failed to update study log");
     },
   });

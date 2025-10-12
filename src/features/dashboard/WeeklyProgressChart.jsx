@@ -87,7 +87,7 @@ const WeeklyProgressChart = ({ logs = [] }) => {
             <p className="text-xs text-muted-foreground">Total Hours</p>
           </div>
           <div className="text-center">
-            <p className="text-2xl font-bold text-secondary">
+            <p className="text-2xl font-bold text-primary">
               {stats.daysStudied}
             </p>
             <p className="text-xs text-muted-foreground">Days Studied</p>

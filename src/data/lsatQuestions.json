@@ -1,0 +1,214 @@
+{
+  "questions": [
+    {
+      "id": 1,
+      "section": "Logical Reasoning",
+      "difficulty": "easy",
+      "question": "If all flowers are plants, and some plants are trees, which of the following must be true?",
+      "options": [
+        "All flowers are trees",
+        "Some flowers are trees",
+        "Some plants are flowers",
+        "No flowers are trees"
+      ],
+      "correctAnswer": 2,
+      "explanation": "We know all flowers are plants, so it must be true that some plants are flowers."
+    },
+    {
+      "id": 2,
+      "section": "Logical Reasoning",
+      "difficulty": "easy",
+      "question": "Sarah will attend the meeting only if John attends. John did not attend the meeting. Which conclusion can be drawn?",
+      "options": [
+        "Sarah attended the meeting",
+        "Sarah did not attend the meeting",
+        "Sarah might have attended the meeting",
+        "John will attend the next meeting"
+      ],
+      "correctAnswer": 1,
+      "explanation": "If Sarah attends only if John attends, and John didn't attend, then Sarah could not have attended."
+    },
+    {
+      "id": 3,
+      "section": "Logical Reasoning",
+      "difficulty": "easy",
+      "question": "All lawyers are professionals. Maria is a professional. Therefore:",
+      "options": [
+        "Maria is a lawyer",
+        "Maria might be a lawyer",
+        "Maria is not a lawyer",
+        "All professionals are lawyers"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Just because all lawyers are professionals doesn't mean all professionals are lawyers. Maria might be a lawyer or another type of professional."
+    },
+    {
+      "id": 4,
+      "section": "Reading Comprehension",
+      "difficulty": "easy",
+      "question": "The author's primary purpose in the passage is to:",
+      "options": [
+        "Criticize a common practice",
+        "Present a new theory",
+        "Explain a phenomenon",
+        "Compare two viewpoints"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Most LSAT reading passages aim to explain or describe a phenomenon or situation."
+    },
+    {
+      "id": 5,
+      "section": "Logical Reasoning",
+      "difficulty": "easy",
+      "question": "If the library is open, then the bookstore is closed. The bookstore is open. Therefore:",
+      "options": [
+        "The library is open",
+        "The library is closed",
+        "Both are open",
+        "Cannot be determined"
+      ],
+      "correctAnswer": 1,
+      "explanation": "This is a contrapositive. If library open → bookstore closed, and bookstore is open, then library must be closed."
+    },
+    {
+      "id": 6,
+      "section": "Logical Reasoning",
+      "difficulty": "easy",
+      "question": "Every student who studies hard passes the exam. Tom passed the exam. Therefore:",
+      "options": [
+        "Tom studied hard",
+        "Tom might have studied hard",
+        "Tom did not study hard",
+        "All who pass study hard"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Studying hard is sufficient for passing, but not necessary. Tom might have studied hard or passed for another reason."
+    },
+    {
+      "id": 7,
+      "section": "Logical Reasoning",
+      "difficulty": "easy",
+      "question": "No cats are dogs. Some pets are dogs. Therefore:",
+      "options": [
+        "No cats are pets",
+        "Some pets are not cats",
+        "All pets are dogs",
+        "Some cats are pets"
+      ],
+      "correctAnswer": 1,
+      "explanation": "If some pets are dogs and no cats are dogs, then some pets (the dogs) are not cats."
+    },
+    {
+      "id": 8,
+      "section": "Analytical Reasoning",
+      "difficulty": "easy",
+      "question": "Five people (A, B, C, D, E) sit in a row. A sits next to B. Which could be true?",
+      "options": [
+        "A sits at one end and B sits at the other end",
+        "C sits between A and B",
+        "A sits in the middle",
+        "B and C are separated by exactly two people"
+      ],
+      "correctAnswer": 2,
+      "explanation": "If A sits next to B, A could be in any position except at opposite ends from B. A sitting in the middle is possible."
+    },
+    {
+      "id": 9,
+      "section": "Logical Reasoning",
+      "difficulty": "easy",
+      "question": "Either the report is accurate or it is misleading. The report is not misleading. Therefore:",
+      "options": [
+        "The report is accurate",
+        "The report might be accurate",
+        "The report is both accurate and misleading",
+        "Cannot be determined"
+      ],
+      "correctAnswer": 0,
+      "explanation": "This is a disjunctive syllogism. If it's either A or B, and it's not B, then it must be A."
+    },
+    {
+      "id": 10,
+      "section": "Logical Reasoning",
+      "difficulty": "easy",
+      "question": "All teachers are patient. Some patient people are musicians. Which must be true?",
+      "options": [
+        "All teachers are musicians",
+        "Some teachers are musicians",
+        "Some musicians are teachers",
+        "None of these must be true"
+      ],
+      "correctAnswer": 3,
+      "explanation": "We can't determine any definite relationship between teachers and musicians from these statements."
+    },
+    {
+      "id": 11,
+      "section": "Logical Reasoning",
+      "difficulty": "easy",
+      "question": "If it rains, the game is canceled. The game was not canceled. Therefore:",
+      "options": [
+        "It rained",
+        "It did not rain",
+        "It might have rained",
+        "The game will be rescheduled"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Contrapositive: If game not canceled, then it did not rain."
+    },
+    {
+      "id": 12,
+      "section": "Logical Reasoning",
+      "difficulty": "easy",
+      "question": "Most doctors recommend exercise. Dr. Smith is a doctor. Therefore:",
+      "options": [
+        "Dr. Smith recommends exercise",
+        "Dr. Smith probably recommends exercise",
+        "Dr. Smith does not recommend exercise",
+        "All doctors recommend exercise"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Since most (not all) doctors recommend exercise, it's probable but not certain that Dr. Smith does."
+    },
+    {
+      "id": 13,
+      "section": "Analytical Reasoning",
+      "difficulty": "easy",
+      "question": "Three books (X, Y, Z) are stacked. X is above Y. Z is above X. What is the order from bottom to top?",
+      "options": [
+        "Y, X, Z",
+        "Z, X, Y",
+        "X, Y, Z",
+        "Y, Z, X"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Y is below X (X above Y), and X is below Z (Z above X), so: Y, X, Z."
+    },
+    {
+      "id": 14,
+      "section": "Logical Reasoning",
+      "difficulty": "easy",
+      "question": "All birds have feathers. This animal has feathers. Therefore:",
+      "options": [
+        "This animal is a bird",
+        "This animal might be a bird",
+        "This animal is not a bird",
+        "All feathered animals are birds"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Having feathers is necessary for being a bird but might not be sufficient. The animal might be a bird."
+    },
+    {
+      "id": 15,
+      "section": "Logical Reasoning",
+      "difficulty": "easy",
+      "question": "If the temperature drops below freezing, the lake will freeze. The lake did not freeze. Therefore:",
+      "options": [
+        "The temperature dropped below freezing",
+        "The temperature did not drop below freezing",
+        "The temperature might have dropped below freezing",
+        "Cannot be determined"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Contrapositive: If lake didn't freeze, temperature didn't drop below freezing."
+    }
+  ]
+}
