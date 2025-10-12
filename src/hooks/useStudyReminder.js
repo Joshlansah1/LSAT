@@ -17,10 +17,12 @@ export const useStudyReminder = (hasLoggedToday) => {
 
     const checkAndShowReminder = () => {
       const now = new Date();
-      
+
       // Ghana is UTC+0 (GMT)
       // Get current time in Ghana (UTC)
-      const ghanaTime = new Date(now.toLocaleString("en-US", { timeZone: "Africa/Accra" }));
+      const ghanaTime = new Date(
+        now.toLocaleString("en-US", { timeZone: "Africa/Accra" })
+      );
       const hours = ghanaTime.getHours();
       const minutes = ghanaTime.getMinutes();
 
@@ -41,7 +43,9 @@ export const useStudyReminder = (hasLoggedToday) => {
 
   const showReminder = () => {
     // Get random reminder message
-    const randomIndex = Math.floor(Math.random() * remindersData.reminders.length);
+    const randomIndex = Math.floor(
+      Math.random() * remindersData.reminders.length
+    );
     const message = remindersData.reminders[randomIndex];
 
     // Show toast notification
@@ -61,7 +65,7 @@ export const useStudyReminder = (hasLoggedToday) => {
     });
 
     setReminderShown(true);
-    
+
     // Save to localStorage to avoid showing again today
     const today = new Date().toISOString().split("T")[0];
     localStorage.setItem("reminderShown", today);

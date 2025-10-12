@@ -81,6 +81,7 @@
 3. **Click "Allow"** to enable notifications
 
 **If you don't see the prompt:**
+
 - Make sure you restarted the dev server
 - Check browser console for any errors (F12)
 - Verify the App ID is correct in `.env`
@@ -106,6 +107,7 @@ Back in OneSignal dashboard:
 
 ✅ **Welcome notification** when user allows notifications
 ✅ **User tagging** with:
+
 - `user_name`: "Geraudia"
 - `current_streak`: Her current streak count
 - `last_study_date`: Last study date
@@ -129,17 +131,20 @@ Now that it's working, let's create the automated 5pm daily reminder:
 4. Configure:
 
 **Message Details:**
+
 - **Name**: `Daily 5pm Study Reminder`
 - **Title**: `Time to study! 🌸`
 - **Message**: `Your LSAT flower is waiting for today's sunshine! Let's keep that streak growing! 🌻`
 - **Launch URL**: `http://localhost:5173` (change to production URL later)
 
 **Schedule:**
+
 - **Delivery**: `Every day at a specific time`
 - **Time**: `5:00 PM`
 - **Timezone**: `(GMT+0:00) Africa/Accra`
 
 **Audience:**
+
 - **Send to**: `All Subscribed Users`
 
 5. **Save & Enable**
@@ -149,6 +154,7 @@ Now that it's working, let's create the automated 5pm daily reminder:
 ## 🎊 You're Done!
 
 Your app now has:
+
 - ✅ OneSignal enabled
 - ✅ Welcome notification
 - ✅ User tagging for personalization

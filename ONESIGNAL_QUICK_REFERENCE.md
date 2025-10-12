@@ -3,6 +3,7 @@
 ## 🚀 SETUP CHECKLIST
 
 ### Right Now (10 minutes):
+
 - [ ] 1. Go to [onesignal.com](https://onesignal.com) → Sign up
 - [ ] 2. Create new app: "Geraudia LSAT Journey"
 - [ ] 3. Select Web Push platform
@@ -15,6 +16,7 @@
 - [ ] 10. Verify notification appears! ✅
 
 ### Next (5 minutes):
+
 - [ ] 11. Messages → Automated → New Automated Message
 - [ ] 12. Time-based → Every day at 5:00 PM
 - [ ] 13. Timezone: (GMT+0:00) Africa/Accra
@@ -22,6 +24,7 @@
 - [ ] 15. Save & Enable
 
 ### Later (When deploying):
+
 - [ ] 16. Deploy to Vercel/Netlify
 - [ ] 17. Update OneSignal with production URL
 - [ ] 18. Test on Geraudia's iPhone (Safari only!)
@@ -44,32 +47,35 @@
 
 Your app automatically sends these tags to OneSignal:
 
-| Tag | Example | Updates When |
-|-----|---------|--------------|
-| `user_name` | "Geraudia" | On login |
-| `current_streak` | "7" | After logging study |
-| `last_study_date` | "2024-10-12" | After logging study |
-| `total_hours` | "45.5" | After logging study |
-| `streak_level` | "consistent" | When streak changes |
-| `has_logged_today` | "true" | Daily at midnight resets |
+| Tag                | Example      | Updates When             |
+| ------------------ | ------------ | ------------------------ |
+| `user_name`        | "Geraudia"   | On login                 |
+| `current_streak`   | "7"          | After logging study      |
+| `last_study_date`  | "2024-10-12" | After logging study      |
+| `total_hours`      | "45.5"       | After logging study      |
+| `streak_level`     | "consistent" | When streak changes      |
+| `has_logged_today` | "true"       | Daily at midnight resets |
 
 ---
 
 ## 💬 MESSAGE TEMPLATES
 
 ### Daily 5pm Reminder
+
 ```
 Title: Time to study! 🌸
 Message: Your LSAT flower is waiting for today's sunshine! Let's keep that {{tags.current_streak}} day streak growing! 🌻
 ```
 
 ### Morning Motivation (Optional)
+
 ```
 Title: Good morning, Geraudia! ☀️
 Message: Plan when you'll study today. Keep the momentum going! 💪
 ```
 
 ### Missed Study Alert (Optional)
+
 ```
 Title: Still time to study! ⏰
 Message: Don't lose your {{tags.current_streak}} day streak! Even 30 minutes counts!
@@ -77,6 +83,7 @@ Filter: has_logged_today = false
 ```
 
 ### Milestone Celebration (Optional)
+
 ```
 Title: MILESTONE! 🏆
 Message: {{tags.current_streak}} DAY STREAK! You're unstoppable! 🔥
@@ -88,32 +95,35 @@ Filter: current_streak = 7, 14, 30, 100
 ## 🔧 COMMON COMMANDS
 
 ### Restart Dev Server
+
 ```bash
 # Press Ctrl+C to stop, then:
 npm run dev
 ```
 
 ### Check if OneSignal is Working
+
 ```javascript
 // Open browser console (F12) and type:
-OneSignal.isPushNotificationsEnabled()
+OneSignal.isPushNotificationsEnabled();
 // Should return: Promise {<pending>} → true
 ```
 
 ### Send Test Notification
+
 OneSignal Dashboard → Messages → New Push → Send to All Users
 
 ---
 
 ## 🐛 TROUBLESHOOTING
 
-| Problem | Solution |
-|---------|----------|
-| No notification prompt | Restart dev server, verify App ID in `.env` |
-| Prompt appears but nothing happens | Check browser console (F12) for errors |
-| Allowed but not receiving | Check OneSignal Dashboard → Audience → All Users (should show 1 user) |
-| Can't find App ID | OneSignal → Settings → Keys & IDs |
-| Not working on iPhone | Must use Safari, HTTPS in production, Add to Home Screen |
+| Problem                            | Solution                                                              |
+| ---------------------------------- | --------------------------------------------------------------------- |
+| No notification prompt             | Restart dev server, verify App ID in `.env`                           |
+| Prompt appears but nothing happens | Check browser console (F12) for errors                                |
+| Allowed but not receiving          | Check OneSignal Dashboard → Audience → All Users (should show 1 user) |
+| Can't find App ID                  | OneSignal → Settings → Keys & IDs                                     |
+| Not working on iPhone              | Must use Safari, HTTPS in production, Add to Home Screen              |
 
 ---
 

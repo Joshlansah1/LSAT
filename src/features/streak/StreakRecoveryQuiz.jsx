@@ -23,11 +23,11 @@ export function StreakRecoveryQuiz({ onSuccess, onClose, attemptsRemaining }) {
     const easyQuestions = lsatQuestionsData.questions.filter(
       (q) => q.difficulty === "easy"
     );
-    
+
     // Shuffle and pick 3 random questions
     const shuffled = [...easyQuestions].sort(() => Math.random() - 0.5);
     const selected = shuffled.slice(0, 3);
-    
+
     setQuestions(selected);
   }, []);
 
@@ -61,7 +61,7 @@ export function StreakRecoveryQuiz({ onSuccess, onClose, attemptsRemaining }) {
     );
     const shuffled = [...easyQuestions].sort(() => Math.random() - 0.5);
     const selected = shuffled.slice(0, 3);
-    
+
     setQuestions(selected);
     setCurrentQuestion(0);
     setSelectedAnswers({});
@@ -103,7 +103,7 @@ export function StreakRecoveryQuiz({ onSuccess, onClose, attemptsRemaining }) {
           <h3 className="text-2xl font-bold text-foreground mb-2">
             {passed ? "Streak Recovered! 🎉" : "Not Quite There"}
           </h3>
-          
+
           <p className="text-lg text-muted-foreground mb-6">
             You got {score} out of {questions.length} correct
           </p>
@@ -111,7 +111,8 @@ export function StreakRecoveryQuiz({ onSuccess, onClose, attemptsRemaining }) {
           {passed ? (
             <>
               <p className="text-sm text-muted-foreground mb-6">
-                Great job! Your streak has been recovered. Keep up the excellent work!
+                Great job! Your streak has been recovered. Keep up the excellent
+                work!
               </p>
               <Button onClick={onSuccess} size="lg" className="w-full">
                 Continue
@@ -125,7 +126,7 @@ export function StreakRecoveryQuiz({ onSuccess, onClose, attemptsRemaining }) {
               <p className="text-sm font-semibold text-foreground mb-6">
                 Attempts remaining: {attemptsRemaining - 1}
               </p>
-              
+
               {attemptsRemaining > 1 ? (
                 <div className="space-y-3">
                   <Button
@@ -137,7 +138,12 @@ export function StreakRecoveryQuiz({ onSuccess, onClose, attemptsRemaining }) {
                     <FiRefreshCw className="mr-2" />
                     Try Again
                   </Button>
-                  <Button onClick={onClose} size="lg" className="w-full" variant="outline">
+                  <Button
+                    onClick={onClose}
+                    size="lg"
+                    className="w-full"
+                    variant="outline"
+                  >
                     Close
                   </Button>
                 </div>
@@ -156,7 +162,9 @@ export function StreakRecoveryQuiz({ onSuccess, onClose, attemptsRemaining }) {
 
           {/* Show answers */}
           <div className="mt-8 text-left">
-            <h4 className="font-semibold text-foreground mb-4">Review Answers:</h4>
+            <h4 className="font-semibold text-foreground mb-4">
+              Review Answers:
+            </h4>
             <div className="space-y-4">
               {questions.map((q, qIndex) => {
                 const userAnswer = selectedAnswers[qIndex];

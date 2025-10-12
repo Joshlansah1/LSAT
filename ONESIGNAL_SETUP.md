@@ -9,6 +9,7 @@ This guide will help you set up OneSignal push notifications so Geraudia receive
 ## 📱 Important: How iOS Safari Push Notifications Work
 
 ### iOS/iPhone Requirements
+
 - ✅ **Works on iOS 16.4+** (March 2023 and newer)
 - ✅ **Safari browser only** (not Chrome/Firefox on iPhone)
 - ✅ **HTTPS required in production** (localhost works for testing)
@@ -16,6 +17,7 @@ This guide will help you set up OneSignal push notifications so Geraudia receive
 - ✅ **Notifications work even when app is closed** 🎉
 
 ### Key Differences from Android
+
 - iPhone notifications appear in Notification Center
 - User must explicitly allow notifications
 - Best experience when app is added to Home Screen
@@ -26,12 +28,14 @@ This guide will help you set up OneSignal push notifications so Geraudia receive
 ## 🚀 Step 1: Create OneSignal Account (5 minutes)
 
 ### 1.1 Sign Up
+
 1. Go to **[onesignal.com](https://onesignal.com)**
 2. Click **"Get Started Free"**
 3. Sign up with email (completely free, no credit card needed)
 4. Verify your email
 
 ### 1.2 Create New App
+
 1. Click **"New App/Website"**
 2. **App Name**: `Geraudia LSAT Journey`
 3. Click **"Create"**
@@ -41,35 +45,41 @@ This guide will help you set up OneSignal push notifications so Geraudia receive
 ## 🌐 Step 2: Configure Web Push for iPhone (10 minutes)
 
 ### 2.1 Platform Configuration
+
 1. In your OneSignal dashboard, click **"Settings"** → **"Platforms"**
 2. Select **"Web Push"**
 3. Click **"Configure"**
 
 ### 2.2 Web Configuration Settings
+
 Fill in the following:
 
 **Site Name**: `Geraudia's LSAT Journey`
 
 **Site URL** (choose based on environment):
+
 - **Development**: `http://localhost:5173`
 - **Production**: Your Vercel/Netlify URL (e.g., `https://geraudia-lsat.vercel.app`)
 
 **Auto Resubscribe**: `ON` (recommended)
 
 **Default Notification Icon URL** (optional):
+
 - Upload a 256x256 PNG image
 - Or use: `https://onesignal.com/images/notification-icons/icon.png` (default)
 
 ### 2.3 Safari Web Push (IMPORTANT for iPhone!)
+
 1. Scroll down to **"Apple Safari"** section
 2. **Enable Safari**: Toggle `ON`
 3. For now, leave as default (we can add custom icon later)
 4. Click **"Save"**
 
 ### 2.4 Permission Prompt Settings
+
 1. Go to **"Settings"** → **"Web Push"** → **"Permission Prompt"**
 2. **Native Browser Prompt**: Set to `Slide Prompt`
-3. **Prompt Message**: 
+3. **Prompt Message**:
    ```
    Get daily reminders at 5pm to log your study hours and keep your streak alive! 🌸
    ```
@@ -82,11 +92,13 @@ Fill in the following:
 ## 🔑 Step 3: Get Your App ID
 
 ### 3.1 Copy App ID
+
 1. Go to **"Settings"** → **"Keys & IDs"**
 2. Find **"OneSignal App ID"**
 3. Copy the ID (format: `xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx`)
 
 ### 3.2 Add to .env File
+
 1. Open `.env` file in your project
 2. Replace the empty OneSignal App ID line:
    ```env
@@ -102,6 +114,7 @@ Fill in the following:
 Now we'll create automated push notifications that send at 5pm Ghana time every day.
 
 ### 4.1 Create Automated Message
+
 1. In OneSignal dashboard, go to **"Messages"** → **"Automated"**
 2. Click **"New Automated Message"**
 3. Select **"Time-based"**
@@ -111,17 +124,20 @@ Now we'll create automated push notifications that send at 5pm Ghana time every 
 **Message Name**: `Daily 5pm Study Reminder`
 
 **Delivery**:
+
 - **Schedule**: `Every day at a specific time`
 - **Time**: `5:00 PM`
 - **Timezone**: `(GMT+0:00) Africa/Accra` (Ghana time)
 
 **Audience**:
+
 - **Send to**: `All Subscribed Users`
 - Or create segment: `hasn't logged study today` (advanced - we'll set this up with tags)
 
 ### 4.3 Message Content
 
 **Notification Title**: Choose from these options (rotate them!):
+
 ```
 Option 1: Time to study! 🌸
 Option 2: Hey Geraudia! 📚
@@ -130,6 +146,7 @@ Option 4: Keep that streak alive! 🔥
 ```
 
 **Message**: Use data tags (we'll set these up):
+
 ```
 Option 1: Your LSAT flower is waiting for today's sunshine! Let's keep that {{tags.current_streak}} day streak growing! 🌻
 
@@ -141,14 +158,17 @@ Option 4: Study time, Geraudia! Your future lawyer self will thank you! ⚖️�
 ```
 
 **Launch URL** (where to go when clicked):
+
 ```
 https://your-production-url.vercel.app
 ```
+
 (For dev: `http://localhost:5173`)
 
 **Large Icon** (optional): Add a motivational image
 
 **Action Buttons** (optional):
+
 - Button 1: "Log Now" → `https://your-url.com`
 - Button 2: "Remind me in 1 hour" → Can set up with segments
 
@@ -172,6 +192,7 @@ We'll automatically tag users with their streak count, last study date, and name
 ### 5.1 Understanding Tags
 
 OneSignal tags allow personalized notifications:
+
 - `user_name`: "Geraudia"
 - `current_streak`: "7" (days)
 - `last_study_date`: "2024-10-12"
@@ -181,11 +202,13 @@ OneSignal tags allow personalized notifications:
 ### 5.2 How Tags Work in the App
 
 The app automatically sends these tags when:
+
 - User logs in ✅
 - User logs study hours ✅
 - Streak updates ✅
 
 Tags are used for:
+
 - Personalized message content
 - Smart delivery (only notify if haven't studied)
 - Celebrating milestones
@@ -197,17 +220,20 @@ Tags are used for:
 ### 6.1 Test on Localhost (Development)
 
 1. **Start your dev server**:
+
    ```bash
    npm run dev
    ```
 
 2. **Open in Safari** (iPhone simulator or actual iPhone):
+
    - Go to `http://your-computer-ip:5173`
    - Or use `localhost:5173` on Mac
 
 3. **Allow notifications** when prompted
 
 4. **Send a test notification**:
+
    - Go to OneSignal dashboard
    - **Messages** → **New Push**
    - **Send to**: `Test Users` or `All Users`
@@ -223,6 +249,7 @@ Tags are used for:
 After deploying:
 
 1. **Update OneSignal Settings**:
+
    - **Settings** → **Platforms** → **Web Push**
    - Add your production URL
    - Save
@@ -240,16 +267,19 @@ After deploying:
 ### How to Enable Notifications on iPhone
 
 1. **Open the app in Safari**
+
    - Go to your app URL
    - Do NOT use Chrome or other browsers
 
 2. **Add to Home Screen** (Recommended)
+
    - Tap the Share button (box with arrow)
    - Scroll down and tap "Add to Home Screen"
    - Name it: "My LSAT Journey"
    - Tap "Add"
 
 3. **Allow Notifications**
+
    - When prompted, tap "Allow"
    - Go to iPhone Settings → Notifications → Safari (or app name)
    - Make sure "Allow Notifications" is ON
@@ -266,6 +296,7 @@ After deploying:
 Make it more engaging with variety!
 
 ### Morning Motivation (7am Ghana time)
+
 ```
 Title: Good morning, Geraudia! ☀️
 Message: Start your day right! Plan when you'll study today to keep that streak alive! 🌸
@@ -274,6 +305,7 @@ Message: Start your day right! Plan when you'll study today to keep that streak 
 ### Evening Reminder (5pm Ghana time) - Already set up above
 
 ### Missed Study Alert (9pm Ghana time)
+
 ```
 Title: Still time to study! ⏰
 Message: Don't lose your {{tags.current_streak}} day streak! Even 30 minutes counts! 💪
@@ -281,6 +313,7 @@ Condition: Only if last_study_date is not today
 ```
 
 ### Weekly Summary (Sunday 8pm Ghana time)
+
 ```
 Title: Week Complete! 🎉
 Message: You studied {{tags.weekly_hours}} hours this week! Amazing progress, Geraudia! Keep growing! 🌻
@@ -288,6 +321,7 @@ Schedule: Weekly on Sundays
 ```
 
 ### Milestone Celebrations
+
 ```
 Title: MILESTONE! 🏆
 Message: {{tags.current_streak}} DAY STREAK! You're unstoppable, Geraudia! 🔥✨
@@ -303,6 +337,7 @@ Condition: When streak hits 7, 14, 30, 60, 100 days
 **Problem**: Don't see notification prompt
 
 **Solutions**:
+
 - ✅ Make sure you're using **Safari browser** (not Chrome)
 - ✅ Check that HTTPS is enabled in production
 - ✅ Verify OneSignal App ID is correct in `.env`
@@ -312,6 +347,7 @@ Condition: When streak hits 7, 14, 30, 60, 100 days
 **Problem**: Allowed notifications but not receiving them
 
 **Solutions**:
+
 - ✅ Check iPhone Settings → Notifications → Safari
 - ✅ Make sure "Allow Notifications" is ON
 - ✅ Check notification is scheduled in OneSignal dashboard
@@ -321,6 +357,7 @@ Condition: When streak hits 7, 14, 30, 60, 100 days
 **Problem**: Notifications stop working after a while
 
 **Solutions**:
+
 - ✅ Re-open the app in Safari to refresh subscription
 - ✅ Check if user unsubscribed in iPhone Settings
 - ✅ Verify OneSignal subscription is active (check Audience → All Users)
@@ -334,18 +371,21 @@ Condition: When streak hits 7, 14, 30, 60, 100 days
 Create targeted messages for different user types:
 
 **Segment: Consistent Studiers (7+ day streak)**
+
 ```
 Filter: Tag "current_streak" is greater than "6"
 Message: "You're crushing it! {{tags.current_streak}} days strong! 🏆"
 ```
 
 **Segment: Beginners (0-3 day streak)**
+
 ```
 Filter: Tag "current_streak" is less than "4"
 Message: "Keep going! Every day counts toward building your habit! 💪"
 ```
 
 **Segment: Broke Streak**
+
 ```
 Filter: Tag "current_streak" equals "0"
 Message: "New beginnings! Let's start fresh and build an even bigger streak! 🌱"
@@ -378,17 +418,20 @@ Add images to make notifications more engaging:
 ## 🔐 Privacy & Best Practices
 
 ### User Privacy
+
 - ✅ Only collect necessary tags (streak, study date)
 - ✅ No personal information in tags
 - ✅ Allow users to opt-out anytime
 - ✅ Clear about what notifications they'll receive
 
 ### Notification Frequency
+
 - ✅ **Don't over-notify!** Recommended: 1-2 per day max
 - ✅ Respect quiet hours (don't send at night)
 - ✅ Make it easy to customize frequency (future feature)
 
 ### Message Quality
+
 - ✅ Keep messages short and actionable
 - ✅ Always include value (motivation, reminder, celebration)
 - ✅ Use emojis sparingly but effectively

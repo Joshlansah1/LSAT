@@ -1,15 +1,18 @@
 # 🔧 OneSignal Service Worker Fix
 
 ## Issue Fixed
+
 The service worker was trying to import the wrong script. This has been corrected.
 
 ## What Changed
+
 - ✅ `public/OneSignalSDKWorker.js` - Now imports correct service worker script
 - ✅ `src/lib/notifications.js` - Prevents double initialization
 
 ## 🚀 How to Fix in Browser (Do This NOW)
 
 ### Step 1: Clear Old Service Workers
+
 1. **Open your browser** at `http://localhost:5173` or `http://localhost:5174`
 2. **Open DevTools** (Press F12)
 3. **Go to Application tab** (top menu)
@@ -18,10 +21,12 @@ The service worker was trying to import the wrong script. This has been correcte
 6. **Close DevTools**
 
 ### Step 2: Hard Refresh
+
 1. **Press Ctrl+Shift+R** (Windows) or **Cmd+Shift+R** (Mac)
 2. This clears cache and reloads everything
 
 ### Step 3: Test Again
+
 1. **Watch the console** (F12 → Console tab)
 2. You should see: `✅ OneSignal initialized successfully`
 3. **Notification prompt** should appear
@@ -32,15 +37,18 @@ The service worker was trying to import the wrong script. This has been correcte
 ## ✅ Expected Behavior
 
 ### In Console (F12):
+
 ```
 ✅ OneSignal initialized successfully
 ```
 
 ### You Should See:
+
 - A notification permission prompt sliding down from top
 - OR a browser dialog asking to allow notifications
 
 ### You Should NOT See:
+
 - ❌ "Failed to execute 'importScripts'"
 - ❌ "ServiceWorker script evaluation failed"
 - ❌ "SDK already initialized" (should only show once if at all)
@@ -59,6 +67,7 @@ The service worker was trying to import the wrong script. This has been correcte
 6. **Go back to** `http://localhost:5173` or `5174`
 
 ### Or Use Incognito/Private Window:
+
 - This bypasses all cached service workers
 - Press **Ctrl+Shift+N** (Chrome) or **Ctrl+Shift+P** (Firefox)
 - Go to your localhost URL
@@ -69,15 +78,18 @@ The service worker was trying to import the wrong script. This has been correcte
 ## 📋 Summary of All Fixes
 
 ### Files Updated:
+
 1. ✅ `public/OneSignalSDKWorker.js` - Correct script import
 2. ✅ `src/lib/notifications.js` - Script load tracking to prevent duplicates
 
 ### What Was Wrong:
+
 - Service worker was importing `OneSignalSDK.page.js` (wrong)
 - Should import `OneSignalSDK.sw.js` (correct)
 - Script was loading multiple times causing "SDK already initialized"
 
 ### What's Fixed:
+
 - ✅ Service worker imports correct script
 - ✅ SDK only loads once
 - ✅ No duplicate initialization errors
@@ -109,6 +121,7 @@ Then set up your daily 5pm reminder (see `ONESIGNAL_QUICKSTART.md`)
 ---
 
 **Try this now:**
+
 1. Clear service workers (DevTools → Application → Service Workers → Unregister)
 2. Hard refresh (Ctrl+Shift+R)
 3. Allow notifications when prompted

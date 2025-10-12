@@ -173,12 +173,7 @@
       "section": "Analytical Reasoning",
       "difficulty": "easy",
       "question": "Three books (X, Y, Z) are stacked. X is above Y. Z is above X. What is the order from bottom to top?",
-      "options": [
-        "Y, X, Z",
-        "Z, X, Y",
-        "X, Y, Z",
-        "Y, Z, X"
-      ],
+      "options": ["Y, X, Z", "Z, X, Y", "X, Y, Z", "Y, Z, X"],
       "correctAnswer": 0,
       "explanation": "Y is below X (X above Y), and X is below Z (Z above X), so: Y, X, Z."
     },

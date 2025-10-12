@@ -60,8 +60,8 @@ const DashboardPage = () => {
         streakData.currentStreak >= 30
           ? "master"
           : streakData.currentStreak >= 7
-            ? "consistent"
-            : "beginner";
+          ? "consistent"
+          : "beginner";
 
       // Calculate total hours from logs
       const totalHours =
