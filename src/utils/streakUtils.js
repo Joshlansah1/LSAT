@@ -4,7 +4,13 @@
  * @returns {number} Current streak count
  */
 export const calculateStreak = (studyLogs) => {
-  if (!studyLogs || studyLogs.length === 0) return 0;
+  console.log("🔥 calculateStreak CALLED");
+  console.log("📊 Received logs:", studyLogs);
+
+  if (!studyLogs || studyLogs.length === 0) {
+    console.log("⚠️ No study logs - returning 0");
+    return 0;
+  }
 
   // Sort logs by date descending (most recent first)
   const sortedLogs = [...studyLogs].sort((a, b) => {
@@ -21,8 +27,19 @@ export const calculateStreak = (studyLogs) => {
   const mostRecentLog = new Date(sortedLogs[0].study_date);
   mostRecentLog.setHours(0, 0, 0, 0);
 
+  console.log("=== STREAK CALCULATION DEBUG ===");
+  console.log("📅 Today:", today.toISOString().split("T")[0]);
+  console.log("📅 Yesterday:", yesterday.toISOString().split("T")[0]);
+  console.log("📅 Most recent log:", mostRecentLog.toISOString().split("T")[0]);
+  console.log(
+    "📅 All study dates:",
+    sortedLogs.map((log) => log.study_date)
+  );
+
   // If most recent log is not today or yesterday, streak is broken
   if (mostRecentLog < yesterday) {
+    console.log("❌ Streak broken: most recent log is before yesterday");
+    console.log("================================");
     return 0;
   }
 
@@ -32,6 +49,9 @@ export const calculateStreak = (studyLogs) => {
   // If most recent log is yesterday, start counting from yesterday
   if (mostRecentLog.getTime() === yesterday.getTime()) {
     expectedDate = yesterday;
+    console.log("⏮️ Starting from yesterday");
+  } else {
+    console.log("⏮️ Starting from today");
   }
 
   // Count consecutive days
@@ -39,16 +59,26 @@ export const calculateStreak = (studyLogs) => {
     const logDate = new Date(log.study_date);
     logDate.setHours(0, 0, 0, 0);
 
+    console.log(
+      `🔍 Checking: ${logDate.toISOString().split("T")[0]} vs expected ${
+        expectedDate.toISOString().split("T")[0]
+      }`
+    );
+
     if (logDate.getTime() === expectedDate.getTime()) {
       streak++;
+      console.log(`✅ Match! Streak now: ${streak}`);
       expectedDate = new Date(expectedDate);
       expectedDate.setDate(expectedDate.getDate() - 1);
     } else if (logDate < expectedDate) {
       // Gap in dates - streak is broken
+      console.log("❌ Gap in dates - streak broken");
       break;
     }
   }
 
+  console.log("🏆 Final streak:", streak);
+  console.log("================================");
   return streak;
 };
 

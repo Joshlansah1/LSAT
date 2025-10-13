@@ -23,7 +23,11 @@ const LoginPage = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      email: "josiahlansah11155@gmail.com",
+    },
+  });
 
   const onSubmit = async (formData) => {
     setIsLoading(true);

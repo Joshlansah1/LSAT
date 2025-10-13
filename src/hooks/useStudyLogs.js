@@ -8,10 +8,20 @@ export function useStudyLogs() {
   const logsQuery = useQuery({
     queryKey: ["studyLogs"],
     queryFn: async () => {
+      console.log("🔍 useStudyLogs: Starting query...");
+      
       const {
         data: { user },
       } = await supabase.auth.getUser();
-      if (!user) throw new Error("Not authenticated");
+      
+      console.log("🔍 useStudyLogs: User from auth:", user ? "YES" : "NO");
+      
+      if (!user) {
+        console.error("❌ useStudyLogs: Not authenticated");
+        throw new Error("Not authenticated");
+      }
+
+      console.log("🔍 useStudyLogs: Fetching logs for user:", user.id);
 
       const { data, error } = await supabase
         .from("study_logs")
@@ -19,9 +29,16 @@ export function useStudyLogs() {
         .eq("user_id", user.id)
         .order("study_date", { ascending: false });
 
-      if (error) throw error;
+      if (error) {
+        console.error("❌ useStudyLogs: Database error:", error);
+        throw error;
+      }
+      
+      console.log("✅ useStudyLogs: Fetched", data?.length || 0, "logs");
       return data;
     },
+    retry: 2,
+    staleTime: 30000, // 30 seconds
   });
 
   const addLogMutation = useMutation({

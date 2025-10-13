@@ -36,8 +36,28 @@ const DashboardPage = () => {
 
   // Fetch data
   const { logs, isLoading: logsLoading } = useStudyLogs();
-  const { data: streakData, isLoading: streakLoading } = useStreak();
+  const {
+    streak,
+    totalHours,
+    studyDays,
+    averageHours,
+    hasStudiedToday: hasStudiedTodayFromStreak,
+    weekStudyDays,
+    isLoading: streakLoading,
+  } = useStreak();
   const { currentQuote: quote, refreshQuote } = useQuotes();
+
+  // Debug logging
+  useEffect(() => {
+    console.log("📊 Dashboard Status:", {
+      logsLoading,
+      streakLoading,
+      hasLogs: !!logs,
+      logsCount: logs?.length || 0,
+      streak,
+      user: !!user,
+    });
+  }, [logsLoading, streakLoading, logs, streak, user]);
 
   // Check if logged today (needed for reminder hook)
   const today = new Date().toISOString().split("T")[0];
@@ -50,36 +70,49 @@ const DashboardPage = () => {
   // Set OneSignal user ID and tags for personalized notifications
   useEffect(() => {
     const updateNotificationData = async () => {
-      if (!user || !streakData) return;
+      if (!user || streak === undefined) return;
 
-      // Set user ID for targeted notifications
-      await setNotificationUserId(user.id);
+      try {
+        console.log("🔔 Setting up OneSignal notifications...");
+        
+        // Set user ID for targeted notifications (non-blocking)
+        setNotificationUserId(user.id).catch(err => 
+          console.warn("OneSignal user ID failed:", err)
+        );
 
-      // Calculate streak level
-      const streakLevel =
-        streakData.currentStreak >= 30
-          ? "master"
-          : streakData.currentStreak >= 7
-          ? "consistent"
-          : "beginner";
+        // Calculate streak level
+        const streakLevel =
+          streak >= 30 ? "master" : streak >= 7 ? "consistent" : "beginner";
 
-      // Calculate total hours from logs
-      const totalHours =
-        logs?.reduce((sum, log) => sum + (log.hours_studied || 0), 0) || 0;
+        // Get last study date
+        const lastStudyDate =
+          logs && logs.length > 0
+            ? logs.sort(
+                (a, b) => new Date(b.study_date) - new Date(a.study_date)
+              )[0].study_date
+            : "";
 
-      // Set tags for message personalization and smart delivery
-      await setNotificationTags({
-        user_name: "Geraudia",
-        current_streak: streakData.currentStreak.toString(),
-        last_study_date: streakData.lastStudyDate || "",
-        total_hours: totalHours.toFixed(1),
-        streak_level: streakLevel,
-        has_logged_today: hasLoggedToday.toString(),
-      });
+        // Set tags for message personalization and smart delivery (non-blocking)
+        setNotificationTags({
+          user_name: "Geraudia",
+          current_streak: streak.toString(),
+          last_study_date: lastStudyDate,
+          total_hours: totalHours.toFixed(1),
+          streak_level: streakLevel,
+          has_logged_today: hasLoggedToday.toString(),
+        }).catch(err => 
+          console.warn("OneSignal tags failed:", err)
+        );
+        
+        console.log("✅ OneSignal setup complete");
+      } catch (error) {
+        console.error("OneSignal setup error:", error);
+      }
     };
 
+    // Don't await this - run in background
     updateNotificationData();
-  }, [user, streakData, logs, hasLoggedToday]);
+  }, [user, streak, totalHours, logs, hasLoggedToday]);
 
   // Load recovery attempts from localStorage
   useEffect(() => {
@@ -129,6 +162,17 @@ const DashboardPage = () => {
       console.error("Error signing out:", error);
     }
   };
+
+  // Timeout fallback - if loading takes more than 10 seconds, show error
+  useEffect(() => {
+    if (logsLoading || streakLoading) {
+      const timeout = setTimeout(() => {
+        console.error("⏱️ Loading timeout - check console for errors");
+        console.log("Current state:", { logsLoading, streakLoading, logs, streak });
+      }, 10000);
+      return () => clearTimeout(timeout);
+    }
+  }, [logsLoading, streakLoading, logs, streak]);
 
   if (logsLoading || streakLoading) {
     return <Loading fullScreen message="Loading your journey..." />;
@@ -211,7 +255,7 @@ const DashboardPage = () => {
             </Button>
 
             {/* Streak Recovery Button - show only if streak is 0 and attempts remain */}
-            {streakData === 0 && recoveryAttempts > 0 && (
+            {streak === 0 && recoveryAttempts > 0 && (
               <Button
                 size="lg"
                 variant="secondary"
@@ -225,7 +269,7 @@ const DashboardPage = () => {
           </motion.div>
 
           {/* Stats Grid */}
-          <StatsGrid streak={streakData || 0} logs={logs || []} />
+          <StatsGrid streak={streak || 0} logs={logs || []} />
 
           {/* Main Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -237,7 +281,7 @@ const DashboardPage = () => {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.2 }}
               >
-                <FlowerGrowth streak={streakData || 0} />
+                <FlowerGrowth streak={streak || 0} />
               </motion.div>
 
               {/* Motivational Quote */}
