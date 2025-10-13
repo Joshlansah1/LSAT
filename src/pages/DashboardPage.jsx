@@ -17,7 +17,7 @@ import Loading from "../components/ui/Loading";
 import { StatsGrid } from "../features/dashboard/StatsGrid";
 import FlowerGrowth from "../features/streak/FlowerGrowth";
 import QuoteCard from "../features/quotes/QuoteCard";
-import StudyLogForm from "../features/logs/StudyLogForm";
+import { StudyLogForm } from "../features/inputlog/StudyLogForm";
 import StudyCalendar from "../features/dashboard/StudyCalendar";
 import WeeklyProgressChart from "../features/dashboard/WeeklyProgressChart";
 import StreakRecoveryQuiz from "../features/streak/StreakRecoveryQuiz";
