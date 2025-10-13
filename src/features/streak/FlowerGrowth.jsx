@@ -13,10 +13,10 @@ import { useState } from "react";
  * Includes garden collection - unlock new flowers every 7 days!
  */
 const FlowerGrowth = ({ streak }) => {
-  const [showGarden, setShowGarden] = useState(true);
-  const stage = getFlowerStage(101);
-  const collectedFlowers = getCollectedFlowers(101);
-  const nextFlower = getNextFlower(101);
+  const [showGarden, setShowGarden] = useState(false);
+  const stage = getFlowerStage(streak);
+  const collectedFlowers = getCollectedFlowers(streak);
+  const nextFlower = getNextFlower(streak);
 
   const stageConfig = {
     seed: {
