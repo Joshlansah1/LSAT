@@ -7,10 +7,6 @@ import { useStreak } from "../hooks/useStreak";
 import { useQuotes } from "../hooks/useQuotes";
 import { useStudyLogs } from "../hooks/useStudyLogs";
 import { useStudyReminder } from "../hooks/useStudyReminder";
-import {
-  setNotificationUserId,
-  setNotificationTags,
-} from "../lib/notifications";
 import Button from "../components/ui/Button";
 import Modal from "../components/ui/Modal";
 import Loading from "../components/ui/Loading";
@@ -66,53 +62,6 @@ const DashboardPage = () => {
 
   // Smart reminder at 5pm Ghana time - MUST be called before any conditional returns
   useStudyReminder(hasLoggedToday);
-
-  // Set OneSignal user ID and tags for personalized notifications
-  useEffect(() => {
-    const updateNotificationData = async () => {
-      if (!user || streak === undefined) return;
-
-      try {
-        console.log("🔔 Setting up OneSignal notifications...");
-        
-        // Set user ID for targeted notifications (non-blocking)
-        setNotificationUserId(user.id).catch(err => 
-          console.warn("OneSignal user ID failed:", err)
-        );
-
-        // Calculate streak level
-        const streakLevel =
-          streak >= 30 ? "master" : streak >= 7 ? "consistent" : "beginner";
-
-        // Get last study date
-        const lastStudyDate =
-          logs && logs.length > 0
-            ? logs.sort(
-                (a, b) => new Date(b.study_date) - new Date(a.study_date)
-              )[0].study_date
-            : "";
-
-        // Set tags for message personalization and smart delivery (non-blocking)
-        setNotificationTags({
-          user_name: "Geraudia",
-          current_streak: streak.toString(),
-          last_study_date: lastStudyDate,
-          total_hours: totalHours.toFixed(1),
-          streak_level: streakLevel,
-          has_logged_today: hasLoggedToday.toString(),
-        }).catch(err => 
-          console.warn("OneSignal tags failed:", err)
-        );
-        
-        console.log("✅ OneSignal setup complete");
-      } catch (error) {
-        console.error("OneSignal setup error:", error);
-      }
-    };
-
-    // Don't await this - run in background
-    updateNotificationData();
-  }, [user, streak, totalHours, logs, hasLoggedToday]);
 
   // Load recovery attempts from localStorage
   useEffect(() => {

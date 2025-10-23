@@ -1,10 +1,8 @@
-import { useEffect } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "react-hot-toast";
 import { AuthProvider } from "./context/AuthContext";
 import { ThemeProvider } from "./context/ThemeContext";
 import AppRoutes from "./routes/AppRoutes";
-import { initializeNotifications } from "./lib/notifications";
 import "./index.css";
 
 // Create a client for React Query
@@ -23,19 +21,6 @@ const queryClient = new QueryClient({
  * Sets up all providers and initializes the app
  */
 function App() {
-  // Initialize push notifications
-  useEffect(() => {
-    const setupNotifications = async () => {
-      try {
-        await initializeNotifications();
-      } catch (error) {
-        console.error("Failed to initialize notifications:", error);
-      }
-    };
-
-    setupNotifications();
-  }, []);
-
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
