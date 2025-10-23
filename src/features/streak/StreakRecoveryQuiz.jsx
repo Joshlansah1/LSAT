@@ -11,7 +11,7 @@ import lsatQuestionsData from "../../data/lsatQuestions.json";
  * - Limited attempts (3 attempts total)
  * - Must get 2/3 correct to recover streak
  */
-export function StreakRecoveryQuiz({ onSuccess, onClose, attemptsRemaining }) {
+export function StreakRecoveryQuiz({ onSuccess, onFail, onClose, attemptsRemaining }) {
   const [questions, setQuestions] = useState([]);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedAnswers, setSelectedAnswers] = useState({});
@@ -139,7 +139,10 @@ export function StreakRecoveryQuiz({ onSuccess, onClose, attemptsRemaining }) {
                     Try Again
                   </Button>
                   <Button
-                    onClick={onClose}
+                    onClick={() => {
+                      if (onFail) onFail();
+                      onClose();
+                    }}
                     size="lg"
                     className="w-full"
                     variant="outline"
@@ -152,7 +155,14 @@ export function StreakRecoveryQuiz({ onSuccess, onClose, attemptsRemaining }) {
                   <p className="text-sm text-destructive mb-6">
                     No attempts remaining. Your streak cannot be recovered.
                   </p>
-                  <Button onClick={onClose} size="lg" className="w-full">
+                  <Button 
+                    onClick={() => {
+                      if (onFail) onFail();
+                      onClose();
+                    }} 
+                    size="lg" 
+                    className="w-full"
+                  >
                     Close
                   </Button>
                 </>

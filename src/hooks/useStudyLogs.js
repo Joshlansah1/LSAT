@@ -9,13 +9,13 @@ export function useStudyLogs() {
     queryKey: ["studyLogs"],
     queryFn: async () => {
       console.log("🔍 useStudyLogs: Starting query...");
-      
+
       const {
         data: { user },
       } = await supabase.auth.getUser();
-      
+
       console.log("🔍 useStudyLogs: User from auth:", user ? "YES" : "NO");
-      
+
       if (!user) {
         console.error("❌ useStudyLogs: Not authenticated");
         throw new Error("Not authenticated");
@@ -33,7 +33,7 @@ export function useStudyLogs() {
         console.error("❌ useStudyLogs: Database error:", error);
         throw error;
       }
-      
+
       console.log("✅ useStudyLogs: Fetched", data?.length || 0, "logs");
       return data;
     },

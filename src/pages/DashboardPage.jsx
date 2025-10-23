@@ -60,6 +60,22 @@ const DashboardPage = () => {
   const todaysLog = logs?.find((log) => log.study_date === today);
   const hasLoggedToday = !!todaysLog;
 
+  // Check if user has broken a streak (has logs but current streak is 0)
+  const hasLogsButNoStreak = logs && logs.length > 0 && streak === 0;
+  
+  // Check if the most recent log is more than 1 day old (streak is actually broken)
+  const streakIsBroken = logs && logs.length > 0 && (() => {
+    const sortedLogs = [...logs].sort((a, b) => 
+      new Date(b.study_date) - new Date(a.study_date)
+    );
+    const mostRecentDate = new Date(sortedLogs[0].study_date);
+    const yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1);
+    yesterday.setHours(0, 0, 0, 0);
+    mostRecentDate.setHours(0, 0, 0, 0);
+    return mostRecentDate < yesterday;
+  })();
+
   // Smart reminder at 5pm Ghana time - MUST be called before any conditional returns
   useStudyReminder(hasLoggedToday);
 
@@ -98,9 +114,14 @@ const DashboardPage = () => {
     window.location.reload();
   };
 
-  const handleRecoveryClose = () => {
-    // Deduct one attempt even if closed
+  const handleRecoveryFailed = () => {
+    // Deduct one attempt when quiz is failed
     updateRecoveryAttempts(recoveryAttempts - 1);
+    setIsRecoveryModalOpen(false);
+  };
+
+  const handleRecoveryClose = () => {
+    // Don't deduct attempt if user just closes without trying
     setIsRecoveryModalOpen(false);
   };
 
@@ -117,7 +138,12 @@ const DashboardPage = () => {
     if (logsLoading || streakLoading) {
       const timeout = setTimeout(() => {
         console.error("⏱️ Loading timeout - check console for errors");
-        console.log("Current state:", { logsLoading, streakLoading, logs, streak });
+        console.log("Current state:", {
+          logsLoading,
+          streakLoading,
+          logs,
+          streak,
+        });
       }, 10000);
       return () => clearTimeout(timeout);
     }
@@ -203,8 +229,8 @@ const DashboardPage = () => {
               {hasLoggedToday ? "Update Today's Log" : "Log Today's Study"}
             </Button>
 
-            {/* Streak Recovery Button - show only if streak is 0 and attempts remain */}
-            {streak === 0 && recoveryAttempts > 0 && (
+            {/* Streak Recovery Button - show only if streak is broken (has logs but streak is 0 due to gap) */}
+            {streakIsBroken && recoveryAttempts > 0 && (
               <Button
                 size="lg"
                 variant="secondary"
@@ -295,6 +321,7 @@ const DashboardPage = () => {
       >
         <StreakRecoveryQuiz
           onSuccess={handleRecoverySuccess}
+          onFail={handleRecoveryFailed}
           onClose={handleRecoveryClose}
           attemptsRemaining={recoveryAttempts}
         />
